@@ -970,7 +970,11 @@ def match_elec_names(mne_names, loc_names, method='levenshtein'):
 
     # # macro electrodes start with 'r' or 'l' - find the macro elecs in the mne names which are not in the localization data
     #unmatched_seeg = [x for x in unmatched_names if x[0] in ['r', 'l']] # commented out by AD
-    unmatched_seeg = [x for x in unmatched_names if isinstance(x, str) and x[0] in ['r', 'l']] # added by AD
+    # Macro electrodes start with 'r' or 'l' - find the macro elecs in the MNE names which are not in the localization data
+    unmatched_seeg = [
+        x for x in unmatched_names 
+        if isinstance(x, str) and x[0] in ['r', 'l']
+    ]
 
     matched_elecs = []
     replaced_elec_names = []
