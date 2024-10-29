@@ -965,9 +965,23 @@ def match_elec_names(mne_names, loc_names, method='levenshtein'):
 
     # Check which electrode names are in the loc but not the mne
     unmatched_names = list(set(loc_names) - set(mne_names))
+    
+    print(unmatched_names) # added by AD
 
     # # macro electrodes start with 'r' or 'l' - find the macro elecs in the mne names which are not in the localization data
-    unmatched_seeg = [x for x in unmatched_names if x[0] in ['r', 'l']]
+    #unmatched_seeg = [x for x in unmatched_names if x[0] in ['r', 'l']] # commented out by AD
+    
+    unmatched_seeg = [] # added by AD
+
+    for x in unmatched_names:
+        if x[0] in ['r', 'l']:
+            try:
+                # Attempt to access the first character to check if x is subscriptable
+                _ = x[0]
+                unmatched_seeg.append(x)  # Only append if x is subscriptable
+            except TypeError:
+                # If x is unsubscriptable, skip it
+                continue
 
     matched_elecs = []
     replaced_elec_names = []
