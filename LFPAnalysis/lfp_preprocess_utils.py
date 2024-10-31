@@ -785,6 +785,7 @@ def bipolar_ref(elec_path, bad_channels, unmatched_seeg=None, site='MSSM'):
 
     elec_data = load_elec(elec_path, site=site)
     elec_data['bundle'] = np.nan
+    elec_data = elec_data.dropna(subset=['label']) ## added by AD
     if site == 'MSSM':
         elec_data['bundle'] = elec_data.apply(lambda x: ''.join(i for i in x.label if not i.isdigit()), axis=1)
     elif site == 'UI':
