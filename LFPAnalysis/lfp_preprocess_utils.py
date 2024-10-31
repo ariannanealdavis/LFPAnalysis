@@ -1935,11 +1935,14 @@ def ref_mne(mne_data=None, elec_path=None, method='wm', site='MSSM'):
                                                unmatched_seeg=unmatched_seeg,
                                                site=site)
         
+    # Check existing channels (optional, for debugging)
+    print("Existing channels:", mne_data.ch_names)
     
     # Note that, despite the name, the following function lets you manually set what is being subtracted from what:
     mne_data_reref = mne.set_bipolar_reference(mne_data, 
                           anode=anode_list, 
                           cathode=cathode_list,
+                          ch_name=[f'{a}-{c}_bp' for a, c in zip(anode_list, cathode_list)],  # added by AD -- Custom unique names
                           copy=True)
     
     # drop the unreferenced channels (oob or bad or wm)
